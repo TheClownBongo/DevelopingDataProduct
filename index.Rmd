@@ -10,6 +10,7 @@ widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 knit        : slidify::knit2slides
 
+## The 
 ---
 
 ## Regression Model Derived
@@ -67,7 +68,7 @@ print(scatterresidualsvspredicted)
 
 ## Should we revisit the model?
 
-Yes as from the Shapiro tests, we find the data is not normally distributed since the p-Value are extremely small.
+Yes as from the Shapiro tests, we find the data is not normally distributed since the p-Values are 0 to machine precision.
 ```{r justificationGE, echo = FALSE}
 print(shapiro.test(data_stock$lnadjcloseGE)) 
 print(shapiro.test(data_stock$lnadjcloseSP500))
