@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Product Regression</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Data Product Regression">
+  <meta name="author" content="The Clown Bongo">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Data Product Regression</h1>
+    <h2></h2>
+    <p>The Clown Bongo<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Regression Model Derived</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The file DevDataProdRegData should be in your working directory. The file has information about the log return of the S&amp;P 500 and GE for the period 2004 to 2014.<br>
+With the provided data, we will find whether the correlation coefficient indicates there seems to be a linear relationship between the log return of GE and S&amp;P 500. We will derive a linear regression model of GE against the S&amp;P 500, plot the data against the regression line, and a scatter plot of the residuals versus the predicted values.</p>
+
+<pre><code>## 
+## Call:
+## lm(formula = data_stock$lnadjcloseGE ~ data_stock$lnadjcloseSP500)
+## 
+## Coefficients:
+##                (Intercept)  data_stock$lnadjcloseSP500  
+##                 -0.0001934                   1.1370860
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>Scatter Plot Data with Regression Line</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/ScatterPlot-1.png" alt="plot of chunk ScatterPlot"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Scatter Plot of the residuals against fitted values</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="assets/fig/ScatterResidualvsFitted-1.png" alt="plot of chunk ScatterResidualvsFitted"> </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Should we revisit the model?</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Yes as from the Shapiro tests, we find the data is not normally distributed since the p-Values are 0 to machine precision.</p>
+
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  data_stock$lnadjcloseGE
+## W = 0.8513, p-value &lt; 2.2e-16
+</code></pre>
+
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  data_stock$lnadjcloseSP500
+## W = 0.8696, p-value &lt; 2.2e-16
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Regression Model Derived'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Scatter Plot Data with Regression Line'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Scatter Plot of the residuals against fitted values'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Should we revisit the model?'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+  </script>
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script> -->
+  <script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

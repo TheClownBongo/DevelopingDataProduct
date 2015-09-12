@@ -1,0 +1,79 @@
+---
+title       : Data Product Regression
+subtitle    : 
+author      : The Clown Bongo
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : [mathjax]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+
+## The 
+---
+
+## Regression Model Derived
+
+The file DevDataProdRegData should be in your working directory. The file has information about the log return of the S&P 500 and GE for the period 2004 to 2014.  
+With the provided data, we will find whether the correlation coefficient indicates there seems to be a linear relationship between the log return of GE and S&P 500. We will derive a linear regression model of GE against the S&P 500, plot the data against the regression line, and a scatter plot of the residuals versus the predicted values.
+```{r read_data, echo = FALSE}
+data_stock <- read.csv('DevDataProdRegData.csv', header = TRUE, sep = ",")
+sumdata_stock <- summary(data_stock)
+#print(sumdata_stock)
+correlation_GESP500_pearson <- cor(data_stock$lnadjcloseGE, data_stock$lnadjcloseSP500, method = "pearson")
+#print(correlation_GESP500_pearson)
+lmfitGEvsSP500 <- lm(data_stock$lnadjcloseGE ~ data_stock$lnadjcloseSP500)
+sum_lmfitGEvsSP500 <- summary(lmfitGEvsSP500)
+print(lmfitGEvsSP500)
+```
+
+---
+
+## Scatter Plot Data with Regression Line
+
+```{r ScatterPlot, echo = FALSE}
+require(ggplot2)
+scatterGESP500 <- ggplot(data_stock, aes(lnadjcloseSP500, lnadjcloseGE)) + 
+    geom_point(colour = "red") + 
+    ggtitle("Scatterplot Log Return GE vs Log ReturnS&P 500") + 
+    xlab("Log Return S&P 500") + 
+    ylab("Log Return GE") + 
+    geom_smooth(method=lm, se=FALSE)
+print(scatterGESP500)
+```
+
+---
+
+## Scatter Plot of the residuals against fitted values
+
+```{r ScatterResidualvsFitted, echo = FALSE}
+# Predict the values
+data_pred <- predict(lmfitGEvsSP500)
+
+# Get the residuals
+residuals <- data_stock$lnadjcloseGE - data_pred
+data_predres <- data.frame(residuals, data_pred)
+
+# Plot the residuals against fitted data
+scatterresidualsvspredicted <- ggplot(data_predres, aes(residuals, data_pred)) + 
+    geom_point(colour = "red") + 
+    ggtitle("Scatterplot Residuals vs Predicted") + 
+    xlab("Predicted") + 
+    ylab("Residuals") 
+print(scatterresidualsvspredicted)
+```
+
+---
+
+## Should we revisit the model?
+
+Yes as from the Shapiro tests, we find the data is not normally distributed since the p-Values are 0 to machine precision.
+```{r justificationGE, echo = FALSE}
+print(shapiro.test(data_stock$lnadjcloseGE)) 
+print(shapiro.test(data_stock$lnadjcloseSP500))
+```
+
+
+
+
